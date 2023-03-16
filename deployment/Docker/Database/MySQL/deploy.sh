@@ -1,8 +1,8 @@
 #!/bin/bash
 sudo apt-get install mysql-client -y
 
-docker pull mysql
-docker run -p 3306:3306 --name mysql-docker-local -e MYSQL_ROOT_PASSWORD=Password -d mysql:latest --bind-address=0.0.0.0
+sudo docker pull mysql
+sudo docker run -p 3306:3306 --name mysql-docker-local -e MYSQL_ROOT_PASSWORD=Password -d mysql:latest --bind-address=0.0.0.0
 while ! mysqladmin ping --host=127.0.0.1 --silent; do
     sleep 1
 done
