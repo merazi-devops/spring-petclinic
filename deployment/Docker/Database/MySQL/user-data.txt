@@ -1,0 +1,8 @@
+sudo apt update
+sudo apt install docker-compose -y
+sudo apt install git -y
+
+git clone https://github.com/AwakenedViskasha/spring-petclinic.git
+git checkout Deployment-Database-Docker-MySQL
+chmod +x ./deployment/Docker/Database/MySQL/deploy.sh
+
