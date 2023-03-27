@@ -11,19 +11,17 @@ RUN service mysql start
 
 EXPOSE 8080
 
-RUN git clone https://github.com/spring-projects/spring-petclinic.git
+RUN git clone https://github.com/AwakenedViskasha/spring-petclinic.git
 WORKDIR spring-petclinic
 
 RUN echo "# database init, supports mysql too" > src/main/resources/application-mysql.properties
 RUN echo "database=mysql" >> src/main/resources/application-mysql.properties
-RUN echo "spring.datasource.url= jdbc:mysql://petclinic.alpha-technology.cloudns.ph:3306/petclinic" >> src/main/resources/application-mysql.properties
-RUN echo "spring.datasource.username=petclinic" >> src/main/resources/application-mysql.properties
-RUN echo "spring.datasource.password=petclinic" >> src/main/resources/application-mysql.properties
-RUN echo "spring.datasource.driver-class-name=com.mysql.jdbc.Driver" >> src/main/resources/application-mysql.properties
-RUN echo "spring.datasource.schema=classpath*:db/${database}/schema.sql" >> src/main/resources/application-mysql.properties
-RUN echo "spring.datasource.data=classpath*:db/${database}/data.sql" >> src/main/resources/application-mysql.properties
+RUN echo "spring.datasource.url=${MYSQL_URL:-jdbc:mysql://15.236.7.54:3306/petclinic}" >> src/main/resources/application-mysql.properties
+RUN echo "spring.datasource.username=${MYSQL_USER:-petclinic}" >> src/main/resources/application-mysql.properties
+RUN echo "spring.datasource.password=${MYSQL_PASS:-petclinic}" >> src/main/resources/application-mysql.properties
+RUN echo "spring.sql.init.mode=always" >> src/main/resources/application-mysql.properties
 
-RUN ./mvnw package
+
 
 
 # Exposer le port MySQL
@@ -33,9 +31,4 @@ EXPOSE 3306
 EXPOSE 80
 
 
-# Lancer nginx
-#CMD java -jar target/*.jar
-
-
-
-CMD ./mvnw spring-boot:run -D spring-boot.run.profiles=mysql
+CMD ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
