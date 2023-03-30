@@ -1,0 +1,13 @@
+#!/bin/bash
+sudo apt-get update
+sudo apt-get install -y openjdk-17-jdk openjdk-17-jre
+sudo apt-get install -y git
+git clone https://github.com/AwakenedViskasha/spring-petclinic.git
+cd spring-petclinic
+echo "# database init, supports mysql too" > src/main/resources/application-mysql.properties
+echo "database=mysql" >> src/main/resources/application-mysql.properties
+echo "spring.datasource.url=${MYSQL_URL:-jdbc:mysql://database-1.cdsjltzmqrlq.eu-west-3.rds.amazonaws.com:3306/petclinic}" >> src/main/resources/application-mysql.properties
+echo "spring.datasource.username=${MYSQL_USER:-petclinic}" >> src/main/resources/application-mysql.properties
+echo "spring.datasource.password=${MYSQL_PASS:-petclinic}" >> src/main/resources/application-mysql.properties
+echo "spring.sql.init.mode=always" >> src/main/resources/application-mysql.properties
+sudo ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
