@@ -16,7 +16,7 @@ WORKDIR spring-petclinic
 
 RUN echo "# database init, supports mysql too" > src/main/resources/application-mysql.properties
 RUN echo "database=mysql" >> src/main/resources/application-mysql.properties
-RUN echo "spring.datasource.url=${MYSQL_URL:-jdbc:mysql://petclinic-db-mysql-instance-1.c0dng319gujr.eu-west-3.rds.amazonaws.com:3306/petclinic}" >> src/main>
+RUN echo "spring.datasource.url=${MYSQL_URL:-jdbc:mysql://petclinic-db-instance-1.cvaynupz6nwb.eu-west-3.rds.amazonaws.com:3306/petclinic}" >> src/main>
 RUN echo "spring.datasource.username=${MYSQL_USER:-petclinic}" >> src/main/resources/application-mysql.properties
 RUN echo "spring.datasource.password=${MYSQL_PASS:-petclinic}" >> src/main/resources/application-mysql.properties
 RUN echo "spring.sql.init.mode=always" >> src/main/resources/application-mysql.properties
