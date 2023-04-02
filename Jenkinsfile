@@ -59,11 +59,5 @@ pipeline {
         }
     }
     
-    post {
-        always {
-            node {
-                junit 'reports/**/*.xml'
-            }
-        }
-    }
+    
 }
