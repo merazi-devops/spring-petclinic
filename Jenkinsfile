@@ -2,8 +2,11 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE_NAME = "petclinic_app"
-        DOCKERFILE_GITHUB_REPO = "https://github.com/merazi-devops/spring-petclinic.git"
+        DOCKERFILE_GITHUB_REPO = "https://github.com/Amioss/spring-petclinic.git"
         DOCKERFILE_GITHUB_BRANCH = "main"
+        JMETER_BIN = "${workspace}/spring-petclinic/src/test/bin"
+        JMETER_TEST_PLAN = "${workspace}/spring-petclinic/src/test/petclinic_test_plan.jmx"
+        JMETER_RESULTS = "${workspace}/test_results.jtl"
     }
     stages {
         stage('Checkout') {
@@ -18,6 +21,11 @@ pipeline {
                 }
             }
         }
+        stage('Test') {
+            steps {
+                sh "${env.JMETER_BIN}/jmeter -n -t ${env.JMETER_TEST_PLAN} -l ${env.JMETER_RESULTS}"
+            }
+        }
         stage('Run Docker') {
             steps {
                 sh "docker rm -f petclinic_container || true"
@@ -28,6 +36,8 @@ pipeline {
     post {
         always {
             sh "docker ps -a"
+            sh "docker logs petclinic_container"
+            sh "docker cp petclinic_container:${env.JMETER_RESULTS} ${env.JMETER_RESULTS}"
         }
     }
 }
