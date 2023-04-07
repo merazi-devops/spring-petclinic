@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE_NAME = "petclinic_app"
-        DOCKERFILE_GITHUB_REPO = "https://github.com/Amioss/spring-petclinic.git"
+        DOCKERFILE_GITHUB_REPO = "https://github.com/merazi-devops/spring-petclinic.git"
         DOCKERFILE_GITHUB_BRANCH = "main"
         JMETER_TEST_PLAN = "/src/test/jmeter/petclinic_test_plan.jmx"
         JMETER_RESULTS = "test_results.jtl"
