@@ -13,11 +13,7 @@ pipeline {
                 git branch: "${env.DOCKERFILE_GITHUB_BRANCH}", url: "${env.DOCKERFILE_GITHUB_REPO}"
             }
         }
-        stage('Test') {
-            steps {
-                sh "jmeter -n -t ${env.JMETER_TEST_PLAN} -l ${env.JMETER_RESULTS}"
-            }
-        }
+        
         stage('Build Docker image') {
             steps {
                 script {
@@ -31,6 +27,13 @@ pipeline {
                 sh "docker run -d --name petclinic_container -p 80:8080 ${env.DOCKER_IMAGE_NAME}:latest"
             }
         }
+        stage('execute Performance Tests') {
+            steps{
+            sh '/etc/apache-jmeter-5.4.1/bin/jmeter.sh -n -t /spring-petclinic/src/test/jmeter/petclinic_test_plan.jmx -l test.jml'
+            }
+        
+        }
+
     }
     post {
         always {
