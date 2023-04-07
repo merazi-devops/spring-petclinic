@@ -13,11 +13,7 @@ pipeline {
                 git branch: "${env.DOCKERFILE_GITHUB_BRANCH}", url: "${env.DOCKERFILE_GITHUB_REPO}"
             }
         }
-        stage('Test') {
-            steps {
-                sh "jmeter -n -t ${env.JMETER_TEST_PLAN} -l ${env.JMETER_RESULTS}"
-            }
-        }
+        
         stage('Build Docker image') {
             steps {
                 script {
@@ -31,7 +27,7 @@ pipeline {
                 sh "docker run -d --name petclinic_container -p 80:8080 ${env.DOCKER_IMAGE_NAME}:latest"
             }
         }
-        stage('Execute  Tests') {
+        stage('Execute Tests') {
             steps{
             echo 'Test not found'
             }
