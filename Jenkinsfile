@@ -27,15 +27,7 @@ pipeline {
                 sh "docker run -d --name petclinic_container -p 80:8080 ${env.DOCKER_IMAGE_NAME}:latest"
             }
         }
-     
-        
-        stage('Archive Unit Tests Results') {
-            steps {
-                echo 'Archive Unit Test Results'
-               step([$class: 'JUnitResultArchiver', testResults: 'target/surefire-reports/TEST-*.xml'])
-            }
-        }
-        
+       
         
     post {
         always {
