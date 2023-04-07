@@ -12,7 +12,7 @@ pipeline {
             }
         }
         
-        stage('Build Docker image') {
+        stage('Build image') {
             steps {
                 script {
                     docker.build("${env.DOCKER_IMAGE_NAME}:latest", "--file=./Dockerfile .")
