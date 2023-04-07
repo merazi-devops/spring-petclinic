@@ -27,7 +27,7 @@ pipeline {
                 sh "docker run -d --name petclinic_container -p 80:8080 ${env.DOCKER_IMAGE_NAME}:latest"
             }
         }
-        stage('execute  Tests') {
+        stage('Execute  Tests') {
             steps{
             echo 'Test not found'
             }
