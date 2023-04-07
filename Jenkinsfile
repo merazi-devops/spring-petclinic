@@ -40,7 +40,7 @@ pipeline {
         always {
             sh "docker ps -a"
             sh "docker logs petclinic_container"
-            sh "docker cp petclinic_container:${env.JMETER_RESULTS} ${env.JMETER_RESULTS}"
+           
         }
     }
 }
