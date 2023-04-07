@@ -36,14 +36,7 @@ pipeline {
             }
         }
         
-        stage('Publish Unit Test results report') {
-            steps {
-                echo 'Report'
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: 'https://github.com/merazi-devops/spring-petclinic', reportFiles: 'Textreport', reportName: 'Hassan report', reportTitles: ''])
-
-
-
-    }
+        
     post {
         always {
             sh "docker ps -a"
