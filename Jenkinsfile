@@ -27,12 +27,20 @@ pipeline {
                 sh "docker run -d --name petclinic_container -p 80:8080 ${env.DOCKER_IMAGE_NAME}:latest"
             }
         }
-        stage('Execute  Tests') {
-            steps{
-            echo 'Test not found'
-            }
+     
         
+        stage('Archive Unit Tests Results') {
+            steps {
+                echo 'Archive Unit Test Results'
+               step([$class: 'JUnitResultArchiver', testResults: 'target/surefire-reports/TEST-*.xml'])
+            }
         }
+        
+        stage('Publish Unit Test results report') {
+            steps {
+                echo 'Report'
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: 'https://github.com/merazi-devops/spring-petclinic', reportFiles: 'Textreport', reportName: 'Hassan report', reportTitles: ''])
+
 
 
     }
