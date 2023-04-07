@@ -4,8 +4,6 @@ pipeline {
         DOCKER_IMAGE_NAME = "petclinic_app"
         DOCKERFILE_GITHUB_REPO = "https://github.com/merazi-devops/spring-petclinic.git"
         DOCKERFILE_GITHUB_BRANCH = "main"
-        JMETER_TEST_PLAN = "src/test/petclinic_test_plan.jmx"
-        JMETER_RESULTS = "test_results.jtl"
     }
     stages {
         stage('Checkout') {
@@ -38,8 +36,8 @@ pipeline {
     post {
         always {
             sh "docker ps -a"
-            sh "docker logs petclinic_container"
-            sh "docker cp petclinic_container:${env.JMETER_RESULTS} ${env.JMETER_RESULTS}"
+           
+           
         }
     }
 }
