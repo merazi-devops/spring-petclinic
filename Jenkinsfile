@@ -25,7 +25,7 @@ pipeline {
                 sh "docker run -d --name petclinic_container -p 80:8080 ${env.DOCKER_IMAGE_NAME}:latest"
             }
         }
-        stage('Tests 2') {
+        stage('Tests') {
             steps{
             echo 'Test'
             }
