@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Execute Tests') {
             steps{
-            echo 'Test not found'
+            echo 'Test'
             }
         
         }
